@@ -46,23 +46,55 @@ if (navToggle && navLinks) {
   });
 }
 
-// Contact form — prevent default, show success message
+// Contact form — collect data and open pre-filled email
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('button[type="submit"]');
+    const successMsg = document.getElementById('formSuccess');
+    const errorMsg = document.getElementById('formError');
     const originalText = btn.textContent;
-    btn.textContent = '✓ Request Sent! We\'ll be in touch soon.';
-    btn.style.background = '#16a34a';
+
+    successMsg.style.display = 'none';
+    errorMsg.style.display = 'none';
+    btn.textContent = 'Sending...';
     btn.disabled = true;
-    // Reset after 5 seconds
+
+    // Collect form data
+    const name = contactForm.querySelector('[name="name"]').value;
+    const email = contactForm.querySelector('[name="email"]').value;
+    const store = contactForm.querySelector('[name="store"]').value || 'Not provided';
+    const platform = contactForm.querySelector('[name="platform"]').value || 'Not specified';
+    const challenge = contactForm.querySelector('[name="challenge"]').value || 'Not provided';
+
+    // Build email body
+    const subject = encodeURIComponent('New Enquiry — PalMultimedia.com');
+    const body = encodeURIComponent(
+      `New enquiry from PalMultimedia.com\n\n` +
+      `Name: ${name}\n` +
+      `Email: ${email}\n` +
+      `Store URL: ${store}\n` +
+      `Platform: ${platform}\n` +
+      `Challenge: ${challenge}\n\n` +
+      `---\nSent from palmultimedia.com contact form`
+    );
+
+    // Open mailto
+    window.location.href = `mailto:palmultimedia@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show success
+    successMsg.style.display = 'block';
+    contactForm.reset();
+    btn.textContent = '✓ Opening your email client...';
+    btn.style.background = '#16a34a';
+
     setTimeout(() => {
       btn.textContent = originalText;
       btn.style.background = '';
       btn.disabled = false;
-      contactForm.reset();
-    }, 5000);
+      successMsg.style.display = 'none';
+    }, 6000);
   });
 }
 
