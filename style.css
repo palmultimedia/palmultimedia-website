@@ -726,3 +726,172 @@ img { max-width: 100%; display: block; }
   .footer-inner { grid-template-columns: 1fr; }
   .trust-band-inner { flex-direction: column; align-items: center; gap: 12px; }
 }
+
+/* ============================================================
+   PLATFORM SECTIONS — Magento & Shopify
+   ============================================================ */
+.platform-section { padding: 80px 0; }
+
+.platform-magento {
+  background: var(--dark);
+  color: var(--white);
+}
+.platform-magento .platform-header h2,
+.platform-magento .platform-col h4 { color: var(--white); }
+.platform-magento .platform-header p,
+.platform-magento .platform-col p { color: rgba(255,255,255,0.75); }
+
+.platform-shopify {
+  background: var(--light);
+}
+
+.platform-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 56px;
+}
+.platform-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  background: rgba(26,86,219,0.15);
+  color: #60a5fa;
+  margin-bottom: 16px;
+}
+.platform-tag--green {
+  background: rgba(16,185,129,0.12);
+  color: #059669;
+}
+.platform-shopify .platform-header h2 { color: var(--dark); }
+.platform-shopify .platform-header p { color: var(--mid); }
+
+.platform-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.platform-col {
+  padding: 28px;
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.05);
+}
+.platform-shopify .platform-col {
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+.platform-col-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 14px;
+}
+.platform-col h4 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+.platform-shopify .platform-col h4 { color: var(--dark); }
+.platform-shopify .platform-col p { color: var(--mid); }
+
+.platform-checklist-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 36px 40px;
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.05);
+  flex-wrap: wrap;
+}
+.platform-shopify .platform-checklist-wrap {
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+.platform-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 40px;
+}
+.platform-checklist li {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+}
+.platform-shopify .platform-checklist li { color: var(--mid); }
+
+.btn-shopify {
+  background: #059669 !important;
+  white-space: nowrap;
+}
+.btn-shopify:hover { background: #047857 !important; }
+
+/* ============================================================
+   AI-ENHANCED SECTION
+   ============================================================ */
+.ai-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0ea5e9 100%);
+  color: var(--white);
+  padding: 96px 0;
+}
+.ai-inner { text-align: center; }
+.ai-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 20px;
+}
+.ai-section h2 {
+  color: var(--white);
+  max-width: 640px;
+  margin: 0 auto 16px;
+}
+.ai-sub {
+  color: rgba(255,255,255,0.8);
+  max-width: 600px;
+  margin: 0 auto 56px;
+  font-size: 1.05rem;
+}
+.ai-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+.ai-col {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: background var(--transition);
+}
+.ai-col:hover { background: rgba(255,255,255,0.12); }
+.ai-col-icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+.ai-col h4 { color: var(--white); margin: 0 0 10px; font-size: 1rem; }
+.ai-col p { color: rgba(255,255,255,0.72); font-size: 0.93rem; margin: 0; }
+.ai-note {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .platform-cols,
+  .ai-cols { grid-template-columns: 1fr; }
+  .platform-checklist { grid-template-columns: 1fr; }
+  .platform-checklist-wrap { flex-direction: column; align-items: flex-start; }
+}
