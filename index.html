@@ -603,7 +603,13 @@
         </ul>
       </div>
       <div class="contact-form-wrap">
-        <form class="contact-form" id="contactForm">
+        <form class="contact-form" id="contactForm"
+              action="https://formsubmit.co/ajax/palmultimedia@gmail.com"
+              method="POST">
+          <!-- Formsubmit.co config -->
+          <input type="hidden" name="_subject" value="New Enquiry — PalMultimedia Website" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
           <h3>Book Your Ecommerce Growth Consultation</h3>
           <div class="form-group">
             <label for="name">Your Name</label>
@@ -637,7 +643,7 @@
             ✓ Message sent! We'll be in touch within 1 business day.
           </div>
           <div id="formError" style="display:none; margin-top:12px; padding:12px; background:#fef2f2; border:1px solid #fca5a5; border-radius:8px; color:#dc2626; font-weight:500;">
-            Something went wrong. Please email us directly at palmultimedia@gmail.com
+            Something went wrong. Please email us directly at <a href="mailto:palmultimedia@gmail.com" style="color:#dc2626;">palmultimedia@gmail.com</a>
           </div>
         </form>
       </div>

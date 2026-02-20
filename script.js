@@ -46,11 +46,8 @@ if (navToggle && navLinks) {
   });
 }
 
-// Contact form — Formspree endpoint (works on all browsers/devices)
-// SETUP REQUIRED: Sign up at formspree.io with palmultimedia@gmail.com
-// Replace FORMSPREE_FORM_ID below with your actual form ID (e.g. xpwzrqab)
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORMSPREE_FORM_ID';
-
+// Contact form — Formsubmit.co AJAX (works on all browsers/devices, no backend needed)
+// Sends to palmultimedia@gmail.com. First submission triggers a one-time activation email.
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
@@ -67,20 +64,30 @@ if (contactForm) {
 
     try {
       const formData = new FormData(contactForm);
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(contactForm.action, {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success === 'true') {
         // Success — form delivered to Raspal's inbox
         successMsg.style.display = 'block';
         contactForm.reset();
         btn.textContent = '✓ Message sent!';
         btn.style.background = '#16a34a';
 
-        // Fire GA4 form_submit event if dataLayer available
+        // Fire GA4 form_submit event (works once GA4 is installed)
+        if (typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'form_submit', {
+            form_id: 'contact',
+            page_location: window.location.href,
+            page_title: document.title
+          });
+        }
+        // Also push to dataLayer for GTM
         if (typeof window.dataLayer !== 'undefined') {
           window.dataLayer.push({
             event: 'form_submit',
