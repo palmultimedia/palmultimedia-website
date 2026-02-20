@@ -46,7 +46,11 @@ if (navToggle && navLinks) {
   });
 }
 
-// Contact form — collect data and open pre-filled email
+// Contact form — Formspree endpoint (works on all browsers/devices)
+// SETUP REQUIRED: Sign up at formspree.io with palmultimedia@gmail.com
+// Replace FORMSPREE_FORM_ID below with your actual form ID (e.g. xpwzrqab)
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORMSPREE_FORM_ID';
+
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
@@ -61,40 +65,45 @@ if (contactForm) {
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
-    // Collect form data
-    const name = contactForm.querySelector('[name="name"]').value;
-    const email = contactForm.querySelector('[name="email"]').value;
-    const store = contactForm.querySelector('[name="store"]').value || 'Not provided';
-    const platform = contactForm.querySelector('[name="platform"]').value || 'Not specified';
-    const challenge = contactForm.querySelector('[name="challenge"]').value || 'Not provided';
+    try {
+      const formData = new FormData(contactForm);
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
 
-    // Build email body
-    const subject = encodeURIComponent('New Enquiry — PalMultimedia.com');
-    const body = encodeURIComponent(
-      `New enquiry from PalMultimedia.com\n\n` +
-      `Name: ${name}\n` +
-      `Email: ${email}\n` +
-      `Store URL: ${store}\n` +
-      `Platform: ${platform}\n` +
-      `Challenge: ${challenge}\n\n` +
-      `---\nSent from palmultimedia.com contact form`
-    );
+      if (response.ok) {
+        // Success — form delivered to Raspal's inbox
+        successMsg.style.display = 'block';
+        contactForm.reset();
+        btn.textContent = '✓ Message sent!';
+        btn.style.background = '#16a34a';
 
-    // Open mailto
-    window.location.href = `mailto:palmultimedia@gmail.com?subject=${subject}&body=${body}`;
+        // Fire GA4 form_submit event if dataLayer available
+        if (typeof window.dataLayer !== 'undefined') {
+          window.dataLayer.push({
+            event: 'form_submit',
+            form_id: 'contact',
+            page_location: window.location.href,
+            page_title: document.title
+          });
+        }
 
-    // Show success
-    successMsg.style.display = 'block';
-    contactForm.reset();
-    btn.textContent = '✓ Opening your email client...';
-    btn.style.background = '#16a34a';
-
-    setTimeout(() => {
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.disabled = false;
+          successMsg.style.display = 'none';
+        }, 6000);
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      errorMsg.style.display = 'block';
       btn.textContent = originalText;
-      btn.style.background = '';
       btn.disabled = false;
-      successMsg.style.display = 'none';
-    }, 6000);
+    }
   });
 }
 
