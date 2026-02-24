@@ -888,6 +888,38 @@ img { max-width: 100%; display: block; }
   margin: 0;
 }
 
+/* Testimonials */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 22px;
+}
+.testimonial {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 18px;
+}
+.testimonial .quote {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.92);
+}
+.testimonial .meta {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+}
+.testimonial-cta {
+  margin-top: 18px;
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
+
 /* Hero refresh */
 .hero-points {
   margin: 18px 0 22px;
